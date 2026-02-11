@@ -1,0 +1,55 @@
+<h2>Crear cuenta</h2>
+
+@if (loading) {
+  <p>Cargando clientes...</p>
+} @else {
+  @if (!createdAccount) {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccionar cliente</mat-label>
+        <mat-select formControlName="documentNumber" placeholder="Cliente sin cuenta">
+          @for (c of customersWithoutAccount; track c.id) {
+            <mat-option [value]="c.documentNumber">
+              {{ c.fullName }} - {{ c.documentNumber }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (form.get('documentNumber')?.hasError('required')) {
+          <mat-error>Seleccione un cliente</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="Active">Active</mat-option>
+          <mat-option value="Inactive">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || customersWithoutAccount.length === 0">
+          Crear cuenta
+        </button>
+      </div>
+    </form>
+
+    @if (customersWithoutAccount.length === 0) {
+      <p class="no-customers">No hay clientes sin cuenta. Cree un cliente primero en la sección Clientes.</p>
+    }
+  } @else {
+    <mat-card class="account-card">
+      <mat-card-header>
+        <mat-card-title>Cuenta creada</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Número de cuenta:</strong> {{ createdAccount.accountNumber }}</p>
+        <p><strong>Estado:</strong> {{ createdAccount.status }}</p>
+        <p><strong>Cliente:</strong> {{ createdForCustomerName }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="reset()">Crear otra cuenta</button>
+      </mat-card-actions>
+    </mat-card>
+  }
+}

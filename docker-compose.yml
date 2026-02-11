@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: prueba-banco-db
+    environment:
+      POSTGRES_USER: banco_user
+      POSTGRES_PASSWORD: banco_password
+      POSTGRES_DB: banco_db
+    ports:
+      - "5434:5432"  # Puerto host:puerto contenedor (5434 para evitar conflictos)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

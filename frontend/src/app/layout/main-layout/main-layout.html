@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span>Banco - Prueba Técnica</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/clientes" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    Clientes
+  </a>
+  <a mat-button routerLink="/cuentas" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    Cuentas
+  </a>
+</mat-toolbar>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,46 @@
+<h2>Nuevo cliente</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de documento</mat-label>
+    <mat-select formControlName="documentType">
+      @for (type of documentTypes; track type) {
+        <mat-option [value]="type">{{ type }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Número de documento</mat-label>
+    <input matInput formControlName="documentNumber" />
+    @if (form.get('documentNumber')?.hasError('required')) {
+      <mat-error>El número de documento es requerido</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre completo</mat-label>
+    <input matInput formControlName="fullName" />
+    @if (form.get('fullName')?.hasError('required')) {
+      <mat-error>El nombre es requerido</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+    @if (form.get('email')?.hasError('required')) {
+      <mat-error>El email es requerido</mat-error>
+    }
+    @if (form.get('email')?.hasError('email')) {
+      <mat-error>Email inválido</mat-error>
+    }
+  </mat-form-field>
+
+  <div style="display: flex; gap: 0.5rem;">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Crear
+    </button>
+    <button mat-button type="button" routerLink="/clientes">Cancelar</button>
+  </div>
+</form>
