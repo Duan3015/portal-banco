@@ -1,7 +1,3 @@
-# Banco - Prueba Técnica
-
-Sistema de gestión de clientes y cuentas bancarias (Fullstack: Angular + Node.js + PostgreSQL).
-
 ---
 
 ## Requisitos
